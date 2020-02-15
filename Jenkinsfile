@@ -13,19 +13,19 @@ node{
     
     
     stage('Build Docker Image'){
-        sh 'docker build -t goldentech/java-web-app .'
+        sh 'docker build -t nani903020/java-web-app .'
     }
     
     stage('Push Docker Image'){
         withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Pwd')]) {
-          sh "docker login -u goldentech -p ${Docker_Hub_Pwd}"
+          sh "docker login -u nani903030 -p ${Docker_Hub_Pwd}"
         }
-        sh 'docker push goldentech/java-web-app'
+        sh 'docker push nani903020/java-web-app'
      }
      
       stage('Run Docker Image In Dev Server'){
         
-        def dockerRun = ' docker run  -d -p 8080:8080 --name java-web-app goldentech/java-web-app'
+        def dockerRun = ' docker run  -d -p 8080:8080 --name java-web-app nani903020/java-web-app'
          
          sshagent(['DOCKER_SERVER']) {
           sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.32.75 docker stop java-web-app || true'
